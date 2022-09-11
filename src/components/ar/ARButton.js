@@ -18,6 +18,7 @@ class ARButton {
       const button = document.createElement('button')
       button.style.display = 'none'
       button.style.height = '40px'
+      button.style.color = 'red'
       button.classList.add('ARButtonDOM')
 
       navigator.xr.isSessionSupported('immersive-ar').then((supported) => {
@@ -52,7 +53,7 @@ class ARButton {
     let currentSession = null
     const self = this
 
-    this.stylizeElement(button, true, 30, true)
+    this.stylizeElement(button, true, 12, true)
 
     function onSessionStarted(session) {
       session.addEventListener('end', onSessionEnded)
@@ -83,11 +84,11 @@ class ARButton {
 
     //
 
-    button.style.display = ''
+    button.style.display = 'block'
     button.style.right = '20px'
     button.style.width = '80px'
     button.style.cursor = 'pointer'
-    button.innerHTML = '<i class="fas fa-camera"></i>'
+    button.innerHTML = 'Start AR'
 
     button.onmouseenter = function () {
       button.style.fontSize = '12px'
@@ -96,8 +97,8 @@ class ARButton {
     }
 
     button.onmouseleave = function () {
-      button.style.fontSize = '30px'
-      button.innerHTML = '<i class="fas fa-camera"></i>'
+      button.style.fontSize = '12px'
+      button.innerHTML = 'Start AR'
       button.style.opacity = '0.5'
     }
 

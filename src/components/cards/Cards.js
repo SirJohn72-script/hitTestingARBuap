@@ -7,15 +7,13 @@ export default function Cards() {
     {
       id: 0,
       title: 'Lobito',
-      image:
-        'https://images.pexels.com/photos/13099181/pexels-photo-13099181.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-      model: 'Hombre',
+      image: './images/lobitos.png',
+      model: 'Lobito',
     },
     {
       id: 1,
       title: 'Letrero Preparatoria',
-      image:
-        'https://images.pexels.com/photos/13046522/pexels-photo-13046522.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      image: './images/letrero.png',
       model: 'CartelModel',
     },
   ])

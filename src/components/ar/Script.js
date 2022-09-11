@@ -16,7 +16,7 @@ class ARExperience {
       0.1,
       100
     )
-    this.camera.position.set(0, 0, 3.5)
+    this.camera.position.set(3, 3, 3.5)
 
     this.scene = new THREE.Scene()
 
@@ -25,7 +25,6 @@ class ARExperience {
       antialias: true,
       alpha: true,
     })
-    this.renderer.setPixelRatio(window.devicePixelRatio)
     this.renderer.setPixelRatio(1)
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping
     this.renderer.toneMappingExposure = 1.5
@@ -33,6 +32,10 @@ class ARExperience {
     this.renderer.setSize(window.innerWidth, window.innerHeight)
     this.container.appendChild(this.renderer.domElement)
     this.renderer.setAnimationLoop(this.render.bind(this))
+
+    //Clock
+    this.Clock = new THREE.Clock()
+    this.mixer = null
 
     //   controls
     this.controls = new OrbitControls(this.camera, this.renderer.domElement)
@@ -80,12 +83,46 @@ class ARExperience {
     gltfLoader.load(path, (gltf) => {
       this.model.add(gltf.scene)
       this.scene.add(this.model)
+      let box3 = new THREE.Box3().setFromObject(gltf.scene)
+      let size = new THREE.Vector3()
+      box3.getSize(size)
+      this.controls.target.y = size.y / 2
+    })
+  }
+
+  loadModelWithAnimation(path) {
+    const gltfLoader = new GLTFLoader()
+    gltfLoader.load(path, (gltf) => {
+      this.model.add(gltf.scene)
+      this.scene.add(this.model)
+
+      this.mixer = new THREE.AnimationMixer(gltf.scene)
+      for (let i = 0; i < gltf.animations.length; i++) {
+        const action = this.mixer.clipAction(gltf.animations[i])
+        action.play()
+      }
+
+      let box3 = new THREE.Box3().setFromObject(gltf.scene)
+      let size = new THREE.Vector3()
+      box3.getSize(size)
+      this.controls.target.y = size.y / 2
     })
   }
 
   addLight() {
-    const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x080820, 1)
-    this.scene.add(hemisphereLight)
+    const direc = new THREE.DirectionalLight(0xffffff, 1)
+    direc.position.set(10, 10, 10)
+    this.scene.add(direc)
+
+    const envMap = new THREE.CubeTextureLoader().load([
+      './hdri/px.png',
+      './hdri/nx.png',
+      './hdri/py.png',
+      './hdri/ny.png',
+      './hdri/pz.png',
+      './hdri/nz.png',
+    ])
+    this.scene.environment = envMap
   }
 
   setupARExperience() {
@@ -95,7 +132,7 @@ class ARExperience {
       sessionInit: {
         requiredFeatures: ['hit-test'],
         optionalFeatures: ['dom-overlay'],
-        domOverlay: { root: this.container },
+        domOverlay: { root: document.body },
       },
     })
 
@@ -128,14 +165,14 @@ class ARExperience {
       })
     })
 
-    session.addEventListener('start', () => {
-      console.log('Inicio se ssion')
-    })
-
     session.addEventListener('end', () => {
       this.hitTestSourceRequested = false
       this.hitTestSource = null
       this.referenceSpace = null
+      this.camera.position.set(3, 3, 3)
+      this.model.position.set(0, 0, 0)
+      this.reticle.visible = false
+      window.location.reload()
     })
 
     this.hitTestSourceRequested = true
@@ -167,6 +204,11 @@ class ARExperience {
 
   render(timestamp, frame) {
     this.controls.update()
+    const delta = this.Clock.getDelta()
+
+    if (this.mixer) {
+      this.mixer.update(delta)
+    }
 
     if (frame) {
       if (this.hitTestSourceRequested === false) {
@@ -180,7 +222,16 @@ class ARExperience {
     this.renderer.render(this.scene, this.camera)
   }
 
-  cleapUp() {}
+  cleapUp() {
+    document.getElementById('Scene3D').removeChild(this.container)
+    this.container.removeChild(this.renderer.domElement)
+    this.scene.traverse((child) => {
+      if (child.isMesh) {
+        child.material.dispose()
+        child.geometry.dispose()
+      }
+    })
+  }
 }
 
 export { ARExperience }

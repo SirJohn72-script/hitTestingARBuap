@@ -18,6 +18,7 @@ class ARButton {
       const button = document.createElement('button')
       button.style.display = 'none'
       button.style.height = '40px'
+      button.classList.add('ARButtonDOM')
 
       navigator.xr.isSessionSupported('immersive-ar').then((supported) => {
         supported ? this.showStartAR(button) : this.showARNotSupported(button)

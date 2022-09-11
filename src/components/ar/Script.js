@@ -65,21 +65,21 @@ class ARExperience {
     this.scene.add(this.reticle)
 
     this.model = new THREE.Group()
-    this.model.visible = false
   }
 
   initScene() {
     document.getElementById('Scene3D').appendChild(this.container)
-    this.loadModel()
+    document.querySelector('.ARButtonDOM').addEventListener('click', () => {
+      this.model.visible = false
+    })
     this.addLight()
   }
 
-  loadModel() {
+  loadModel(path) {
     const gltfLoader = new GLTFLoader()
-    gltfLoader.load('./models/CartelModel.glb', (gltf) => {
+    gltfLoader.load(path, (gltf) => {
       this.model.add(gltf.scene)
       this.scene.add(this.model)
-      //   this.model.position.set(5, 5, 5)
     })
   }
 

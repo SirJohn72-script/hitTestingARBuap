@@ -1,0 +1,86 @@
+.container {
+  width: 100%;
+  background-color: #f9f9f9;
+  height: 100vh;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+  max-width: 1000px;
+  margin: auto;
+}
+
+/* Titulo */
+.title__container {
+  width: 100%;
+  padding-top: 1rem;
+  text-align: center;
+}
+
+.title__container h1 {
+  color: #00395e;
+  font-size: 2rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 700;
+}
+
+.title__container p {
+  color: #9c9c9c;
+  font-size: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 300;
+  margin-top: 1rem;
+}
+
+/* Cards */
+.cards__container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.card {
+  width: 300px;
+  border: 1px solid #d2d2d2;
+  padding: 1rem;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  margin: 0.5rem;
+}
+
+.card__image {
+  width: 100%;
+  height: 370px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+.card__image img {
+  width: 100%;
+  height: 100%;
+}
+
+.card__label {
+  width: 100%;
+  padding: 1rem 0 0.5rem 0;
+}
+
+.card__label h1 {
+  font-size: 1rem;
+  color: #00395e;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 800;
+  text-align: center;
+  text-transform: uppercase;
+}

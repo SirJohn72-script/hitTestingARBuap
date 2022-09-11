@@ -1,12 +1,19 @@
 import React from 'react'
 import { ARExperience } from './Script'
 import { useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 
-export default function AREscene() {
+export default function AREscene({ modelPath }) {
+  const { model } = useParams()
+
+  // useEffect(() => {
+  //   console.log(model)
+  // }, [])
+
   useEffect(() => {
     const experience = new ARExperience()
     experience.initScene()
-    // experience.SetupXRExperience()
+    experience.loadModel(`/models/${model}.glb`)
 
     return () => {
       experience.cleapUp()

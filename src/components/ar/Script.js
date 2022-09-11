@@ -40,7 +40,8 @@ class ARExperience {
     //   controls
     this.controls = new OrbitControls(this.camera, this.renderer.domElement)
     this.controls.enableDamping = true
-    // this.controls.target.set(0, 0, -0.3)
+    this.controls.enablePan = false
+    this.controls.enableZoom = false
 
     //resize
     window.addEventListener('resize', this.resize.bind(this))

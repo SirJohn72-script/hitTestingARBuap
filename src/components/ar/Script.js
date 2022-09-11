@@ -173,7 +173,8 @@ class ARExperience {
       this.camera.position.set(3, 3, 3)
       this.model.position.set(0, 0, 0)
       this.reticle.visible = false
-      window.location.reload()
+      // window.location.reload()
+      window.location.href = '/'
     })
 
     this.hitTestSourceRequested = true

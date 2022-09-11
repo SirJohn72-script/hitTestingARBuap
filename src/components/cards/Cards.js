@@ -1,6 +1,7 @@
 import './Card.css'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import Explicacion from '../explicacion/Explicacion'
 
 export default function Cards() {
   const [cards, setCards] = useState([
@@ -25,6 +26,8 @@ export default function Cards() {
           <h1>Bienvenido a la aplicacion Web AR - BUAP</h1>
           <p>v1.0 Esta aplicacion esta en costante desarrollo</p>
         </div>
+
+        <Explicacion />
         <div className="cards__container">
           {cards.map((item, index) => (
             <div className="card" key={index}>

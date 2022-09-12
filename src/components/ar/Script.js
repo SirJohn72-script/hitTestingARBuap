@@ -225,7 +225,6 @@ class ARExperience {
   }
 
   cleapUp() {
-    document.getElementById('Scene3D').removeChild(this.container)
     this.container.removeChild(this.renderer.domElement)
     this.scene.traverse((child) => {
       if (child.isMesh) {

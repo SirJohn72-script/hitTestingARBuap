@@ -1,5 +1,5 @@
 import './Card.css'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Explicacion from '../explicacion/Explicacion'
 
@@ -18,6 +18,14 @@ export default function Cards() {
       model: 'CartelModel',
     },
   ])
+
+  useEffect(() => {
+    const ARButton = document.querySelector('.ARButtonDOM')
+    if (ARButton) {
+      document.body.removeChild(ARButton)
+      window.location.reload()
+    }
+  }, [])
 
   return (
     <div className="container">
